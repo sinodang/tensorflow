@@ -1,4 +1,3 @@
-# pylint: disable=g-bad-file-header
 # encoding: utf-8
 # Copyright 2016 The TensorFlow Authors. All Rights Reserved.
 #
@@ -20,12 +19,18 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import tensorflow as tf
+import sys
+
+# TODO: #6568 Remove this hack that makes dlopen() not crash.
+if hasattr(sys, 'getdlopenflags') and hasattr(sys, 'setdlopenflags'):
+  import ctypes
+  sys.setdlopenflags(sys.getdlopenflags() | ctypes.RTLD_GLOBAL)
 
 from tensorflow.contrib.learn.python.learn.preprocessing import categorical_vocabulary
+from tensorflow.python.platform import test
 
 
-class CategoricalVocabularyTest(tf.test.TestCase):
+class CategoricalVocabularyTest(test.TestCase):
   """Categorical vocabulary tests."""
 
   def testIntVocabulary(self):
@@ -63,4 +68,4 @@ class CategoricalVocabularyTest(tf.test.TestCase):
 
 
 if __name__ == '__main__':
-  tf.test.main()
+  test.main()

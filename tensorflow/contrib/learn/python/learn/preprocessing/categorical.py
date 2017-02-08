@@ -13,7 +13,7 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Implements preprocesing transformers for categorical variables."""
+"""Implements preprocessing transformers for categorical variables."""
 
 from __future__ import absolute_import
 from __future__ import division
@@ -24,7 +24,7 @@ import numpy as np
 
 # pylint: disable=g-bad-import-order
 from . import categorical_vocabulary
-from ..io.data_feeder import setup_processor_data_feeder
+from ..learn_io.data_feeder import setup_processor_data_feeder
 # pylint: enable=g-bad-import-order
 
 
@@ -33,18 +33,20 @@ class CategoricalProcessor(object):
 
   As a common convention, Nan values are handled as unknown tokens.
   Both float('nan') and np.nan are accepted.
-
-  Parameters:
-    min_frequency: Minimum frequency of categories in the vocabulary.
-    share: Share vocabulary between variables.
-    vocabularies: list of CategoricalVocabulary objects for each variable in
-      the input dataset.
-
-  Attributes:
-    vocabularies_: list of CategoricalVocabulary objects.
   """
 
   def __init__(self, min_frequency=0, share=False, vocabularies=None):
+    """Initializes a CategoricalProcessor instance.
+
+    Args:
+      min_frequency: Minimum frequency of categories in the vocabulary.
+      share: Share vocabulary between variables.
+      vocabularies: list of CategoricalVocabulary objects for each variable in
+        the input dataset.
+
+    Attributes:
+      vocabularies_: list of CategoricalVocabulary objects.
+    """
     self.min_frequency = min_frequency
     self.share = share
     self.vocabularies_ = vocabularies
